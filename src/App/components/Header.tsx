@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Avatar, IconButton, Menu, Tooltip } from "@mui/material";
 
-const actualUser = "Jonathan"
+const actualUser = localStorage.getItem("actualUser") || "Invitado";
  
 
 export const Header = () => {
@@ -81,17 +81,12 @@ export const Header = () => {
                   New Flat
                 </Box>
               </NavLink>
-              <NavLink to="/login">
+              <NavLink to="/auth/login">
                 <Box component="span" sx={navLinkStyle}>
                   Log Out
                 </Box>
               </NavLink>
 
-              {/* <NavLink to="/auth/login">
-              <Box component="span" sx={navLinkStyle}>
-                LogOut
-              </Box>
-            </NavLink> */}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -127,7 +122,7 @@ export const Header = () => {
                   <NavLink to="/users" style={{ textDecoration: "none" }}>
                     <Typography sx={navUserLinkStyle}>All Users</Typography>
                   </NavLink>
-                  <NavLink to="/login" style={{ textDecoration: "none" }}>
+                  <NavLink to="/auth/login" style={{ textDecoration: "none" }}>
                     <Typography sx={navUserLinkStyle}>Log Out</Typography>
                   </NavLink>
                   <NavLink to="/profile" style={{ textDecoration: "none" }}>
