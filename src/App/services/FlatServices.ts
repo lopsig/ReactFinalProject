@@ -1,7 +1,11 @@
+
 import { db } from "../../firebase/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { auth } from "../../firebase/firebase"; // Importamos auth para obtener el usuario actual
+import { onSnapshot } from "firebase/firestore";
 
 export interface Flat {
+  id?: string;
   city: string;
   streetName: string;
   streetNumber: number;
@@ -10,8 +14,10 @@ export interface Flat {
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
+  userId: string; 
 }
 
+// Registrar nuevo Flat con userId
 export const registerFlat = async (
   city: string,
   streetName: string,
@@ -22,6 +28,9 @@ export const registerFlat = async (
   rentPrice: number,
   dateAvailable: string
 ) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error("Usuario no autenticado");
+
   const newFlat: Flat = {
     city,
     streetName,
@@ -31,11 +40,32 @@ export const registerFlat = async (
     yearBuilt,
     rentPrice,
     dateAvailable,
+    userId: user.uid, 
   };
 
   const flatsCollection = collection(db, "flats");
   const docRef = await addDoc(flatsCollection, newFlat);
 
   console.log("Documento guardado con ID:", docRef.id);
-  return newFlat;
+  return { ...newFlat, id: docRef.id };
+};
+
+// Obtener flats del usuario actual
+export const getFlatsByUserId = async (): Promise<Flat[]> => {
+  const user = auth.currentUser;
+  if (!user) return [];
+
+  try {
+    const flatsCollection = collection(db, "flats");
+    const q = query(flatsCollection, where("userId", "==", user.uid));
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Flat[];
+  } catch (error) {
+    console.error("Error al cargar los flats:", error);
+    return [];
+  }
 };

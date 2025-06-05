@@ -8,17 +8,18 @@ import {
 } from "@mui/material";
 
 // Definimos la interfaz para las props del componente
-interface ProductCardProps {
-  src: string;
-  City: string;
-  StreetName: string;
-  StreetNumber: number;
-  AreaSize: number;
-  HasAC: boolean| string;
-  YearBuilt: number;
-  RentPrice: number;
-  DateAvailable: string;
-}
+ interface ProductCardProps {
+   id?: string;
+   city: string;
+   streetName: string;
+   streetNumber: number;
+   areaSize: number;
+   hasAC: boolean | string;
+   yearBuilt: number;
+   rentPrice: number;
+   dateAvailable: string;
+   userId: string;
+ }
 
 const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -35,23 +36,20 @@ const StyledCard = styled(Card)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
+
 export const FlatCard: React.FC<ProductCardProps> = ({
-  src,
-  City,
-  StreetName,
-  StreetNumber,
-  AreaSize,
-  HasAC,
-  YearBuilt,
-  RentPrice,
-  DateAvailable,
+  id,
+  city,
+  rentPrice,
+  dateAvailable,
 }) => {
   return (
     <StyledCard>
+      {/* Usamos 'src' como placeholder */}
       <CardMedia
         component="img"
-        image={src}
-        alt={src}
+        image={city}
+        alt={city}
         sx={{
           width: "100%",
           height: "auto",
@@ -60,13 +58,13 @@ export const FlatCard: React.FC<ProductCardProps> = ({
       />
       <CardContent>
         <Typography variant="h6" component="div" gutterBottom>
-          {City}
+          {city}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Rent Price: ${RentPrice.toFixed(2)}
+          Rent Price: ${rentPrice}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Date Available: {DateAvailable}
+          Date Available: {dateAvailable}
         </Typography>
       </CardContent>
     </StyledCard>
@@ -74,22 +72,22 @@ export const FlatCard: React.FC<ProductCardProps> = ({
 };
 
 export const FullFlatCard: React.FC<ProductCardProps> = ({
-  src,
-  City,
-  StreetName,
-  StreetNumber,
-  AreaSize,
-  HasAC,
-  YearBuilt,
-  RentPrice,
-  DateAvailable,
+  id,
+  city,
+  streetName,
+  streetNumber,
+  areaSize,
+  hasAC,
+  yearBuilt,
+  rentPrice,
+  dateAvailable,
 }) => {
   return (
     <StyledCard>
       <CardMedia
         component="img"
-        image={src}
-        alt={src}
+        image={city}
+        alt={city}
         sx={{
           width: "100%",
           height: "auto",
@@ -98,31 +96,30 @@ export const FullFlatCard: React.FC<ProductCardProps> = ({
       />
       <CardContent>
         <Typography variant="h6" component="div" gutterBottom>
-          {City}
+          {city}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Rent Price: ${RentPrice.toFixed(2)}
+          Rent Price: ${rentPrice}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Date Available: {DateAvailable}
+          Date Available: {dateAvailable}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Street Name: {StreetName}
+          Street Name: {streetName}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Street Number: {StreetNumber}
+          Street Number: {streetNumber}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Area Size: {AreaSize}
+          Area Size: {areaSize}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          HasAC: {HasAC}
+          Has AC: {hasAC ? "Sí" : "No"}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Year Built: {YearBuilt}
+          Year Built: {yearBuilt}
         </Typography>
       </CardContent>
     </StyledCard>
   );
 };
-

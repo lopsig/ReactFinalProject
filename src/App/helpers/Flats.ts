@@ -33,20 +33,6 @@ const Flats = [
     DateAvailable: "12Sep2025",
   },
 
-  // {
-  //   src: "../../src/assets/images/11.png",
-  //   alt: "Falda mujer blanca",
-  //   price: 34.99,
-  //   category: "ropa",
-  //   gender: "female",
-  // },
-  // {
-  //   src: "../../src/assets/images/12.png",
-  //   alt: "Blusa mujer blanca",
-  //   price: 54.99,
-  //   category: "ropa",
-  //   gender: "female",
-  // },
 ];
 
 export const getFlatList = () => {

@@ -30,7 +30,7 @@ export const MyAppRouter = () => {
             <Route path="/favourites" element={<FavouritePage />} />
             <Route path="/myflats" element={<MyFlatsPage />} />
             <Route path="/newflat" element={<NewFlatPage />} />
-            <Route path="/item/:src" element={<FlatDetailPage />} />
+            <Route path="/item/:id" element={<FlatDetailPage />} />
 
             <Route path="/*" element={<Navigate to={"/"} />} />
           </Routes>
