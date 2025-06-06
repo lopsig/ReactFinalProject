@@ -16,7 +16,9 @@ export interface Flat {
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
-  userId: string; 
+  userId: string;
+  src: string;
+  alt: string;
 }
 
 // Registrar nuevo Flat con userId
@@ -28,7 +30,10 @@ export const registerFlat = async (
   hasAC: boolean,
   yearBuilt: number,
   rentPrice: number,
-  dateAvailable: string
+  dateAvailable: string,
+  src: string,
+  alt: string,
+  userId: string,
 ) => {
   const user = auth.currentUser;
   if (!user) throw new Error("Usuario no autenticado");

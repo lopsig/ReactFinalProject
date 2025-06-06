@@ -16,6 +16,34 @@ import { logoutUser } from "../../auth/services/AuthServices";
  
 
 export const Header = () => {
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkIfAdmin = async () => {
+      const user = auth.currentUser;
+      if (!user) return setIsAdmin(false);
+
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const userData = userDoc.data();
+
+      setIsAdmin(userData?.isAdmin === true);
+    };
+
+    checkIfAdmin();
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
+
   const [actualUser, setActualUser] = useState<string>("Invitado");
  
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -114,8 +142,6 @@ export const Header = () => {
                 </Box>
               </NavLink>
 
-
-
               {/* <NavLink
                 to="/login"
                 onClick={handleLogout}
@@ -155,17 +181,26 @@ export const Header = () => {
                 <NavLink to="/myflats" style={{ textDecoration: "none" }}>
                   <Typography sx={navUserLinkStyle}>My Flats</Typography>
                 </NavLink>
-                <NavLink to="/users" style={{ textDecoration: "none" }}>
+
+                {isAdmin && (
+                  <NavLink to="/users" style={{ textDecoration: "none" }}>
+                    <Box component="span" sx={navUserLinkStyle}>
+                      All Users
+                    </Box>
+                  </NavLink>
+                )}
+
+                {/* <NavLink to="/users" style={{ textDecoration: "none" }}>
                   <Typography sx={navUserLinkStyle}>All Users</Typography>
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/auth/login" style={{ textDecoration: "none" }}>
                   <Typography sx={navUserLinkStyle}>Log Out</Typography>
                 </NavLink>
-                <NavLink to="/profile" style={{ textDecoration: "none" }}>
+                {/* <NavLink to="/profile" style={{ textDecoration: "none" }}>
                   <Typography sx={{ navUserLinkStyle, color: "red" }}>
                     Delete Account
                   </Typography>
-                </NavLink>
+                </NavLink> */}
               </Menu>
             </Box>
           </Toolbar>

@@ -47,6 +47,8 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
   dateAvailable,
   userId,
   onDelete,
+  src,
+  alt,
 }) => {
 
   const navigate = useNavigate();
@@ -101,7 +103,7 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
           zIndex: 10,
         }}
       >
-        <EditIcon /> 
+        <EditIcon />
       </Box>
 
       {/* Botón de eliminar */}
@@ -139,8 +141,8 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
       {/* Imagen */}
       <CardMedia
         component="img"
-        image="https://via.placeholder.com/300"
-        alt={city}
+        image={src}
+        alt={alt}
         sx={{
           width: "100%",
           height: "auto",

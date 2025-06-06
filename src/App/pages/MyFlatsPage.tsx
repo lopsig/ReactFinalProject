@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Box } from "@mui/material";
+import { Container, Grid, Box, Typography } from "@mui/material";
 
 import { FullFlatCardDelete } from "../components/FullFlatCardDelete";
 import { deleteFlat } from "../services/FlatServices";
@@ -7,6 +7,7 @@ import { deleteFlat } from "../services/FlatServices";
 
 import { getFlatsByUserId } from "../services/FlatServices";
 import { useNavigate } from "react-router-dom";
+
 
 interface Flat {
   id?: string;

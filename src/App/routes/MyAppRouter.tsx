@@ -7,7 +7,8 @@ import { MyFlatsPage } from "../pages/MyFlatsPage";
 import { NewFlatPage } from "../pages/NewFlatPage";
 import { FlatDetailPage } from "../pages/FlatDetailPage";
 import { EditFlatPage } from "../pages/EditFlatPage";
-
+import { ProfilePage } from "../pages/ProfilePage";
+import { UsersPage } from "../pages/UsersPage";
 
 export const MyAppRouter = () => {
   return (
@@ -29,6 +30,9 @@ export const MyAppRouter = () => {
             <Route path="/favourites" element={<FavouritePage />} />
             <Route path="/myflats" element={<MyFlatsPage />} />
             <Route path="/newflat" element={<NewFlatPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/users" element={<UsersPage />} />
+
             <Route path="/item/:id" element={<FlatDetailPage />} />
             <Route path="/edit/:id" element={<EditFlatPage />} />
 

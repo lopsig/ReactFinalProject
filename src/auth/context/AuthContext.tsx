@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase";
+import { loginWithGoogle } from "../services/AuthServices";
 
 // Tipo para nuestro usuario extendido
 interface AppUser {
@@ -25,15 +26,40 @@ interface AppUser {
 // Contexto
 interface AuthContextType {
   user: AppUser | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  loading : boolean,
+  // login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<AppUser | null>;
+  // register: (
+  //   email: string,
+  //   password: string
+  // ) => Promise<{ success: boolean; message?: string }>;
+  register: (email: string, password: string, firstName: string, lastName:string) => Promise<AppUser>;
   logout: () => Promise<void>;
-  register: (
-    email: string,
-    password: string
-  ) => Promise<{ success: boolean; message?: string }>;
+  loginWithGoogleContext:() => Promise<AppUser>
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+// export const AuthContext = createContext<AuthContextType | null>(null);
+
+
+
+export const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+  login: async () => null,
+  register: async () => {
+    throw new Error("Funcion no implementad");
+  },
+  logout: async () => {},
+  loginWithGoogleContext: async () => {
+    console.warn("loginWithGoogle fuera del provider")
+    return {
+      uid: "",
+      email: "",
+      firstName: "",
+      lastName: ""
+    }
+  }
+});
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AppUser | null>(null);
@@ -109,8 +135,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const loginWithGoogleContext = async () => {
+    const userData = await loginWithGoogle()
+    setUser(userData)
+    return userData
+
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, register, loginWithGoogleContext }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,11 +1,16 @@
 import {
   createUserWithEmailAndPassword,
+  getAdditionalUserInfo,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import type { AppUser } from "../interfaces/AppUser";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { GoogleAuthProvider } from "firebase/auth";
+
+
 
 export const registerUser = async (
   email: string,
@@ -68,4 +73,44 @@ export const logoutUser = async () => {
   }
 };
 
-export const loginWithGoogle = async () => {};
+export const getCurrentUserData = async (uid: string): Promise<AppUser | null> => {
+  const userDoc = await getDoc(doc(db, "users", uid));
+
+  if (userDoc.exists()) {
+    return userDoc.data() as AppUser
+  }
+  return null
+}
+
+export const loginWithGoogle = async (): Promise<AppUser> => {
+
+  const provider = new GoogleAuthProvider
+
+  const result = await signInWithPopup(auth, provider)
+
+  console.log("Resultado: ", result)
+
+
+  const { user } = result
+
+  
+  const userInfo = getAdditionalUserInfo(result)
+  const isNewUser = userInfo?.isNewUser
+
+  const userData: AppUser = {
+    uid: user.uid,
+    email: user.email ?? "",
+
+    firstName: user.displayName?.split(" ")[0] ?? "",
+    lastName: user.displayName?.split(" ")[1] ?? "",
+  };
+
+  if (isNewUser) {
+    await getDoc(doc(db, "users", user.uid));
+  }
+
+
+  return userData;
+
+
+};

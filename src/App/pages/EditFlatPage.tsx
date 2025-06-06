@@ -47,7 +47,7 @@ export const EditFlatPage = () => {
         userId: updatedFlat.userId, // No cambiamos el userId, es del usuario logueado
       });
 
-      alert("Flat actualizado correctamente");
+      console.log("Flat actualizado correctamente");
       navigate("/myflats");
     } catch (error) {
       console.error("Error al actualizar el flat:", error);

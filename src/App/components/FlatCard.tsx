@@ -55,6 +55,8 @@ export const FlatCard: React.FC<ProductCardProps> = ({
   rentPrice,
   dateAvailable,
   areaSize,
+  src,
+  alt,
 }) => {
   const [isFavourite, setIsFavourite] = useState(false);
 
@@ -87,7 +89,7 @@ export const FlatCard: React.FC<ProductCardProps> = ({
       });
       setIsFavourite(true);
     }
-    };
+  };
 
   return (
     <StyledCard
@@ -115,8 +117,8 @@ export const FlatCard: React.FC<ProductCardProps> = ({
       {/* Imagen */}
       <CardMedia
         component="img"
-        image="https://via.placeholder.com/300"
-        alt={city}
+        image={src} 
+        alt={alt}
         sx={{
           width: "100%",
           height: "auto",

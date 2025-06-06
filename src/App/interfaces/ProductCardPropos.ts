@@ -1,5 +1,7 @@
 export interface ProductCardProps {
   id?: string;
+  src: string;
+  alt: string;
   city: string;
   streetName: string;
   streetNumber: number;

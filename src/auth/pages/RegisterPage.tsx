@@ -128,12 +128,12 @@ export const RegisterPage = () => {
               Registrar
             </Button>
           </Grid>
-
+{/* 
           <Grid size={{ sm: 6, xs: 12 }}>
             <Button variant="contained" fullWidth startIcon={<GoogleIcon />}>
               Google
             </Button>
-          </Grid>
+          </Grid> */}
 
           <Grid container direction="row" justifyContent="end">
             <Link component={RouterLink} color="inherit" to="/auth/login">
