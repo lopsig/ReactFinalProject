@@ -6,7 +6,7 @@ import { FavouritePage } from "../pages/FavouritePage";
 import { MyFlatsPage } from "../pages/MyFlatsPage";
 import { NewFlatPage } from "../pages/NewFlatPage";
 import { FlatDetailPage } from "../pages/FlatDetailPage";
-
+import { EditFlatPage } from "../pages/EditFlatPage";
 
 
 export const MyAppRouter = () => {
@@ -15,7 +15,6 @@ export const MyAppRouter = () => {
       <Header />
 
       <Box sx={{ display: "flex", flex: 1 }}>
-
         <Box
           component="main"
           sx={{
@@ -31,6 +30,7 @@ export const MyAppRouter = () => {
             <Route path="/myflats" element={<MyFlatsPage />} />
             <Route path="/newflat" element={<NewFlatPage />} />
             <Route path="/item/:id" element={<FlatDetailPage />} />
+            <Route path="/edit/:id" element={<EditFlatPage />} />
 
             <Route path="/*" element={<Navigate to={"/"} />} />
           </Routes>

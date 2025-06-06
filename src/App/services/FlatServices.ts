@@ -1,8 +1,10 @@
 
 import { db } from "../../firebase/firebase";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
-import { auth } from "../../firebase/firebase"; // Importamos auth para obtener el usuario actual
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { auth } from "../../firebase/firebase"; // 
 import { onSnapshot } from "firebase/firestore";
+
+
 
 export interface Flat {
   id?: string;
@@ -67,5 +69,16 @@ export const getFlatsByUserId = async (): Promise<Flat[]> => {
   } catch (error) {
     console.error("Error al cargar los flats:", error);
     return [];
+  }
+};
+
+// Elimina un flat por su ID
+export const deleteFlat = async (flatId: string) => {
+  try {
+    await deleteDoc(doc(db, "flats", flatId));
+    console.log("Flat eliminado con éxito");
+  } catch (error) {
+    console.error("Error al eliminar el flat:", error);
+    throw error;
   }
 };

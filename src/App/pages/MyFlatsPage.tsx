@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Container, Grid, Box } from "@mui/material";
+
+import { FullFlatCardDelete } from "../components/FullFlatCardDelete";
+import { deleteFlat } from "../services/FlatServices";
+
 
 import { getFlatsByUserId } from "../services/FlatServices";
+import { useNavigate } from "react-router-dom";
 
 interface Flat {
   id?: string;
@@ -15,12 +21,29 @@ interface Flat {
   userId: string;
 }
 
-
-
-
 export const MyFlatsPage = () => {
   const [flats, setFlats] = useState<Flat[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const loadFlats = async () => {
+    const data = await getFlatsByUserId();
+    setFlats(data as Flat[]);
+  };
+
+  const handleDelete = async (flatId: string) => {
+    if (!window.confirm("¿Estás seguro de eliminar este flat?")) return;
+
+    try {
+      await deleteFlat(flatId);
+
+      // Actualizar estado local sin recargar página
+      setFlats(flats.filter((flat) => flat.id !== flatId));
+    } catch (error) {
+      alert("Hubo un error al eliminar el flat");
+    }
+  };
+
+
 
   useEffect(() => {
     const loadFlats = async () => {
@@ -33,43 +56,50 @@ export const MyFlatsPage = () => {
   }, []);
 
   if (loading) {
-    return <div>Cargando tus flats...</div>;
+    return <Container>Cargando tus flats...</Container>;
   }
 
-  return (
-    <div style={{ padding: "2rem" }}>
-      <h2>My Flats</h2>
+  // Función opcional: navegar al detalle
+  const handleFlatClick = (flat: Flat) => {
+    navigate(`/item/${encodeURIComponent(flat.id || "")}`, { state: flat });
+  };
 
-      {flats.length === 0 ? (
-        <p>No tienes ningún flat registrado.</p>
-      ) : (
-        <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-          {flats.map((flat) => (
-            <li
-              key={flat.id}
-              style={{
-                borderBottom: "1px solid #ccc",
-                paddingBottom: "1rem",
-                marginBottom: "1rem",
-              }}
-            >
-              <strong>City:</strong> {flat.city}
-              <br />
-              <strong>Street:</strong> {flat.streetName}, #{flat.streetNumber}
-              <br />
-              <strong>Area Size:</strong> {flat.areaSize} m²
-              <br />
-              <strong>Has AC:</strong> {flat.hasAC ? "Sí" : "No"}
-              <br />
-              <strong>Year Built:</strong> {flat.yearBuilt}
-              <br />
-              <strong>Rent Price:</strong> ${flat.rentPrice}
-              <br />
-              <strong>Date Available:</strong> {flat.dateAvailable}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+  return (
+    <Container sx={{ py: 4 }}>
+      <Grid container spacing={3} justifyContent="center">
+        {flats.length === 0 ? (
+          <Typography>No tienes ningún flat registrado.</Typography>
+        ) : (
+          flats.map((flat) => (
+            <Grid item xs={12} sm={6} md={4} key={flat.id}>
+              <Box
+                onClick={() => handleFlatClick(flat)}
+                sx={{
+                  cursor: "pointer",
+                  transition: "transform 0.2s ease",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                  },
+                }}
+              >
+                <FullFlatCardDelete
+                  id={flat.id}
+                  city={flat.city}
+                  streetName={flat.streetName}
+                  streetNumber={flat.streetNumber}
+                  areaSize={flat.areaSize}
+                  hasAC={flat.hasAC}
+                  yearBuilt={flat.yearBuilt}
+                  rentPrice={flat.rentPrice}
+                  dateAvailable={flat.dateAvailable}
+                  userId={flat.userId}
+                  onDelete={() => handleDelete(flat.id)}
+                />
+              </Box>
+            </Grid>
+          ))
+        )}
+      </Grid>
+    </Container>
   );
 };

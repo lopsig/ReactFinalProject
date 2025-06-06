@@ -1,6 +1,4 @@
-
-
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,30 +7,17 @@ import {
   styled,
   Box,
 } from "@mui/material";
+
+import { type ProductCardProps } from "../interfaces/ProductCardPropos";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useNavigate } from "react-router-dom";
-import { isFavouriteInFirebase } from "../services/FavouriteRepository";
-import { addFavourite, removeFavourite } from "../services/FavouriteRepository";
+import { addFavourite, isFavouriteInFirebase, removeFavourite } from "../services/FavouriteRepository";
 import { auth } from "../../firebase/firebase";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 
 
 
-
-
-
-
-interface ProductCardProps {
-  id: string;
-  city: string;
-  streetName: string;
-  streetNumber: number;
-  areaSize: number;
-  hasAC: boolean | string;
-  yearBuilt: number;
-  rentPrice: number;
-  dateAvailable: string;
-  userId: string;
-}
 
 const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -49,29 +34,41 @@ const StyledCard = styled(Card)(({ theme }) => ({
   justifyContent: "space-between",
 }));
 
-export const FlatCard: React.FC<ProductCardProps> = ({
+////////////////////////////////////////
+export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
   id,
   city,
+  streetName,
+  streetNumber,
+  areaSize,
+  hasAC,
+  yearBuilt,
   rentPrice,
   dateAvailable,
-  areaSize,
+  userId,
+  onDelete,
 }) => {
-  const [isFavourite, setIsFavourite] = useState(false);
 
   const navigate = useNavigate();
 
-  // Verifica si ya es favorito al cargar el componente
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Evita que haga click en el card
+    navigate(`/edit/${encodeURIComponent(id)}`);
+  };
+
+
+  const [isFavourite, setIsFavourite] = useState(false);
+
   useEffect(() => {
-    const checkIfFavourite = async () => {
+    const checkStatus = async () => {
       const status = await isFavouriteInFirebase(id);
       setIsFavourite(status);
     };
-
-    checkIfFavourite();
+    checkStatus();
   }, [id]);
 
   const handleFavouriteClick = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita doble navegación
+    e.stopPropagation(); // Para evitar que haga click en el card y navegue
 
     if (isFavourite) {
       await removeFavourite(id);
@@ -80,30 +77,57 @@ export const FlatCard: React.FC<ProductCardProps> = ({
       await addFavourite({
         id,
         city,
+        streetName,
+        streetNumber,
+        areaSize,
+        hasAC,
+        yearBuilt,
         rentPrice,
         dateAvailable,
-        areaSize,
         userId: auth.currentUser?.uid || "",
       });
       setIsFavourite(true);
     }
-    };
+  };
 
   return (
-    <StyledCard
-      onClick={() =>
-        navigate(`/item/${encodeURIComponent(id)}`, {
-          state: { id, city, rentPrice, dateAvailable, areaSize },
-        })
-      }
-    >
+    <StyledCard>
+      {/* Botón de editar */}
+      <Box
+        onClick={handleEditClick}
+        sx={{
+          position: "relative",
+          left: 200,
+          zIndex: 10,
+        }}
+      >
+        <EditIcon /> 
+      </Box>
+
+      {/* Botón de eliminar */}
+      <Box
+        onClick={(e) => {
+          e.stopPropagation(); // Evita ir a detalle al hacer click
+          if (onDelete) onDelete();
+        }}
+        sx={{
+          position: "relative",
+          left: 200,
+          zIndex: 10,
+          cursor: "pointer",
+          color: "text.secondary",
+        }}
+      >
+        <DeleteIcon />
+      </Box>
+
       {/* Icono de favorito */}
       <Box
         onClick={handleFavouriteClick}
         sx={{
           position: "relative",
           left: 200,
-          zIndex: -10,
+          zIndex: 10,
           cursor: "pointer",
           color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",
           // transition: "color 0.3s ease",
@@ -124,7 +148,7 @@ export const FlatCard: React.FC<ProductCardProps> = ({
         }}
       />
 
-      {/* Contenido básico */}
+      {/* Detalles completos */}
       <CardContent>
         <Typography variant="h6" component="div" gutterBottom>
           {city}
@@ -133,12 +157,25 @@ export const FlatCard: React.FC<ProductCardProps> = ({
           Rent Price: ${rentPrice}
         </Typography>
         <Typography variant="body1" color="text.secondary">
+          Date Available: {dateAvailable}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Street Name: {streetName}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Street Number: {streetNumber}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
           Area Size: {areaSize} m²
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Date Available: {dateAvailable}
+          Has AC: {hasAC ? "Sí" : "No"}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Year Built: {yearBuilt}
         </Typography>
       </CardContent>
     </StyledCard>
   );
 };
+
