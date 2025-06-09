@@ -180,7 +180,29 @@ export const HomePage: React.FC = () => {
       </Box>
 
       {/* Lista de Flats filtrados */}
-      <Grid container spacing={3} justifyContent="center">
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        {filteredFlats.length === 0 ? (
+          <Typography>No se encontraron flats con esos filtros.</Typography>
+        ) : (
+          filteredFlats.map((p) => (
+            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
+              <Box
+                onClick={() => onNavigate(p)}
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <FlatCard {...p} />
+              </Box>
+            </Grid>
+          ))
+        )}
+      </Grid>
+      {/* <Grid container spacing={3} justifyContent="center">
         {filteredFlats.length === 0 ? (
           <Typography>No se encontraron flats con esos filtros.</Typography>
         ) : (
@@ -197,7 +219,7 @@ export const HomePage: React.FC = () => {
             </Grid>
           ))
         )}
-      </Grid>
+      </Grid> */}
     </Container>
   );
 };

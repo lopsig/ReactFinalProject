@@ -1,6 +1,6 @@
 import { Grid, TextField, Button, Link } from "@mui/material";
 import { AuthLayout } from "../component/AuthLayout";
-import GoogleIcon from "@mui/icons-material/Google";
+// import GoogleIcon from "@mui/icons-material/Google";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../services/AuthServices";
@@ -14,6 +14,7 @@ type RegisterFormData = {
   confirmPassword: string;
   firstName: string;
   lastName: string;
+  birthDate: string
 };
 
 export const RegisterPage = () => {
@@ -37,7 +38,8 @@ export const RegisterPage = () => {
         data.email,
         data.password,
         data.firstName,
-        data.lastName
+        data.lastName,
+        data.birthDate
       );
       console.log("Usuario registrado:", user);
       navigate("auth/login");
@@ -77,6 +79,11 @@ export const RegisterPage = () => {
             helperText={errors.password?.message}
             {...register("password", {
               required: "Contraseña requerida",
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$/,
+                message:
+                  "La contraseña debe de tener letras, números y un caracter especial",
+              },
               minLength: {
                 value: 6,
                 message: "Minimo 6 caracteres",
@@ -102,8 +109,8 @@ export const RegisterPage = () => {
 
         <Grid sx={{ margin: 2 }}>
           <TextField
-            label="Nombre"
-            placeholder="Nombre"
+            label="First Name"
+            placeholder="First Name"
             fullWidth
             {...register("firstName", { required: "Nombre requerido" })}
             error={!!errors.firstName}
@@ -113,12 +120,23 @@ export const RegisterPage = () => {
 
         <Grid sx={{ margin: 2 }}>
           <TextField
-            label="Apellido"
-            placeholder="Apellido"
+            label="Last Name"
+            placeholder="Last Name"
             fullWidth
             {...register("lastName", { required: "Apellido requerido" })}
             error={!!errors.lastName}
             helperText={errors.lastName?.message}
+          />
+        </Grid>
+
+        <Grid sx={{ margin: 2 }}>
+          <TextField
+            type="date"
+            placeholder="Birth Date"
+            fullWidth
+            {...register("birthDate", { required: "Fecha de nacimiento requerida" })}
+            error={!!errors.birthDate}
+            helperText={errors.birthDate?.message}
           />
         </Grid>
 
@@ -128,7 +146,7 @@ export const RegisterPage = () => {
               Registrar
             </Button>
           </Grid>
-{/* 
+          {/* 
           <Grid size={{ sm: 6, xs: 12 }}>
             <Button variant="contained" fullWidth startIcon={<GoogleIcon />}>
               Google

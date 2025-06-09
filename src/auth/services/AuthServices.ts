@@ -16,7 +16,8 @@ export const registerUser = async (
   email: string,
   password: string,
   firstName: string,
-  lastName: string
+  lastName: string,
+  birthDate: string
 ) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -26,7 +27,7 @@ export const registerUser = async (
     );
 
     const { uid } = userCredential.user;
-    const newUser: AppUser = { uid, email, firstName, lastName };
+    const newUser: AppUser = { uid, email, firstName, lastName,birthDate };
 
     await setDoc(doc(db, "users", uid), newUser);
 

@@ -83,7 +83,7 @@ export const FullFlatCard: React.FC<ProductCardProps> = ({
         onClick={handleFavouriteClick}
         sx={{
           position: "relative",
-          left: 200,
+          left: "95%",
           zIndex: 10,
           cursor: "pointer",
           color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",

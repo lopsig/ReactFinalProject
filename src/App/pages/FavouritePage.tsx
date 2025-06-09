@@ -36,14 +36,19 @@ export const FavouritePage = () => {
 
   return (
     <Container sx={{ py: 4 }}>
-      <Grid container spacing={3} justifyContent="center">
+      <Grid
+        justifyContent="center"
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
         {favourites.length === 0 ? (
           <Typography>
             No tienes ningún flat marcado como favorito aún.
           </Typography>
         ) : (
           favourites.map((flat) => (
-            <Grid item xs={12} sm={6} md={4} key={flat.id}>
+            <Grid size={{ xs: 2, sm: 4, md: 4 }} key={flat.id}>
               <Box
                 sx={{
                   cursor: "pointer",

@@ -6,6 +6,7 @@ import {
   Typography,
   styled,
   Box,
+  Grid
 } from "@mui/material";
 
 import { type ProductCardProps } from "../interfaces/ProductCardPropos";
@@ -45,9 +46,9 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
   yearBuilt,
   rentPrice,
   dateAvailable,
-  userId,
-  onDelete,
   src,
+  // // userId,
+  // onDelete,
   alt,
 }) => {
 
@@ -86,6 +87,7 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
         yearBuilt,
         rentPrice,
         dateAvailable,
+        src,
         userId: auth.currentUser?.uid || "",
       });
       setIsFavourite(true);
@@ -94,49 +96,42 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
 
   return (
     <StyledCard>
-      {/* Botón de editar */}
-      <Box
-        onClick={handleEditClick}
-        sx={{
-          position: "relative",
-          left: 200,
-          zIndex: 10,
-        }}
-      >
-        <EditIcon />
-      </Box>
+      <Grid container spacing={3}>
+        {/* Botón de editar */}
+        <Box
+          onClick={handleEditClick}
+        >
+          <EditIcon />
+        </Box>
 
-      {/* Botón de eliminar */}
-      <Box
-        onClick={(e) => {
-          e.stopPropagation(); // Evita ir a detalle al hacer click
-          if (onDelete) onDelete();
-        }}
-        sx={{
-          position: "relative",
-          left: 200,
-          zIndex: 10,
-          cursor: "pointer",
-          color: "text.secondary",
-        }}
-      >
-        <DeleteIcon />
-      </Box>
+        {/* Botón de eliminar */}
+        <Box
+          onClick={(e) => {
+            e.stopPropagation(); // Evita ir a detalle al hacer click
+            if (onDelete) onDelete();
+          }}
+          sx={{
+            color: "text.secondary",
+          }}
+        >
+          <DeleteIcon />
+        </Box>
 
-      {/* Icono de favorito */}
-      <Box
-        onClick={handleFavouriteClick}
-        sx={{
-          position: "relative",
-          left: 200,
-          zIndex: 10,
-          cursor: "pointer",
-          color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",
-          // transition: "color 0.3s ease",
-        }}
-      >
-        <FavoriteIcon />
-      </Box>
+        {/* Icono de favorito */}
+        <Box
+          onClick={handleFavouriteClick}
+          sx={{
+            position: "relative",
+            // left: "95%",
+            zIndex: 10,
+            cursor: "pointer",
+            color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",
+            // transition: "color 0.3s ease",
+          }}
+        >
+          <FavoriteIcon />
+        </Box>
+      </Grid>
 
       {/* Imagen */}
       <CardMedia

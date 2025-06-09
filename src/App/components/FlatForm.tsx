@@ -112,18 +112,29 @@ export const FlatForm: React.FC<Props> = ({
 
         <Grid item xs={6}>
           <TextField
+            type="date"
             label="Date Available"
-            placeholder="Fecha disponible"
+            placeholder="Date Available"
             fullWidth
             {...register("dateAvailable", { required: true })}
             error={!!errors.dateAvailable}
             helperText={errors.dateAvailable?.message}
           />
         </Grid>
+        <Grid item xs={6}>
+          <TextField
+            label="'Image'"
+            placeholder="'Image'"
+            fullWidth
+            {...register("src", { required: true })}
+            error={!!errors.src}
+            helperText={errors.src?.message}
+          />
+        </Grid>
 
         <Grid item xs={12}>
           <Button variant="contained" fullWidth type="submit">
-            {isEditing ? "Actualizar Flat" : "Registrar Flat"}
+            {isEditing ? "Update Flat" : "Registrar Flat"}
           </Button>
         </Grid>
       </Grid>

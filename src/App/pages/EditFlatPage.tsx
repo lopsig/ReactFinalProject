@@ -44,6 +44,7 @@ export const EditFlatPage = () => {
         yearBuilt: updatedFlat.yearBuilt,
         rentPrice: updatedFlat.rentPrice,
         dateAvailable: updatedFlat.dateAvailable,
+        src: updatedFlat.src,
         userId: updatedFlat.userId, // No cambiamos el userId, es del usuario logueado
       });
 

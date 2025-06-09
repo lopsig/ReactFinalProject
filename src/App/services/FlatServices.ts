@@ -47,6 +47,7 @@ export const registerFlat = async (
     yearBuilt,
     rentPrice,
     dateAvailable,
+    src,
     userId: user.uid, 
   };
 

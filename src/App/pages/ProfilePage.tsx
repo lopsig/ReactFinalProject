@@ -58,14 +58,14 @@ export const ProfilePage = () => {
   };
 
   if (!user) {
-    return <Container>Cargando perfil...</Container>;
+    return <Container> Loading Profile...</Container>;
   }
 
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ padding: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Perfil de Usuario
+          My Profile
         </Typography>
 
         <Box component="div" mb={2}>
@@ -78,12 +78,12 @@ export const ProfilePage = () => {
           <>
             <Box component="div" mb={2}>
               <Typography variant="body1">
-                <strong>Nombre:</strong> {user.firstName}
+                <strong>First Name:</strong> {user.firstName}
               </Typography>
             </Box>
             <Box component="div" mb={2}>
               <Typography variant="body1">
-                <strong>Apellido:</strong> {user.lastName}
+                <strong>Last Name:</strong> {user.lastName}
               </Typography>
             </Box>
             <Button
@@ -91,7 +91,7 @@ export const ProfilePage = () => {
               color="primary"
               onClick={handleEditClick}
             >
-              Editar Perfil
+              Update Profile
             </Button>
           </>
         ) : (

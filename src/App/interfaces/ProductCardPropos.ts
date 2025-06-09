@@ -1,7 +1,5 @@
 export interface ProductCardProps {
   id?: string;
-  src: string;
-  alt: string;
   city: string;
   streetName: string;
   streetNumber: number;
@@ -10,6 +8,8 @@ export interface ProductCardProps {
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
+  src: string;
+  alt: string;
   userId: string;
   isFavourite?: boolean;
 }

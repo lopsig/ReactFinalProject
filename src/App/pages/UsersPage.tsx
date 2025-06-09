@@ -64,13 +64,13 @@ export const UsersPage = () => {
   }, []);
 
   if (loading) {
-    return <Container>Cargando usuarios...</Container>;
+    return <Container>Loading Users...</Container>;
   }
 
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Lista de Usuarios
+        All Users
       </Typography>
 
       {users.length === 0 && (
@@ -108,7 +108,7 @@ export const UsersPage = () => {
               variant="outlined"
               size="small"
             >
-              Eliminar
+              Delete
             </Button>
           )}
         </Paper>
@@ -116,3 +116,4 @@ export const UsersPage = () => {
     </Container>
   );
 };
+

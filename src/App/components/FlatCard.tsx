@@ -31,6 +31,7 @@ interface ProductCardProps {
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
+  src: string;
   userId: string;
 }
 
@@ -104,7 +105,7 @@ export const FlatCard: React.FC<ProductCardProps> = ({
         onClick={handleFavouriteClick}
         sx={{
           position: "relative",
-          left: 200,
+          left: "90%",
           zIndex: -10,
           cursor: "pointer",
           color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",
@@ -117,11 +118,11 @@ export const FlatCard: React.FC<ProductCardProps> = ({
       {/* Imagen */}
       <CardMedia
         component="img"
-        image={src} 
+        image={src}
         alt={alt}
         sx={{
           width: "100%",
-          height: "auto",
+          height: "200px",
           objectFit: "cover",
         }}
       />
@@ -144,3 +145,4 @@ export const FlatCard: React.FC<ProductCardProps> = ({
     </StyledCard>
   );
 };
+

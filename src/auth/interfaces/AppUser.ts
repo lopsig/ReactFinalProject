@@ -3,4 +3,5 @@ export interface AppUser {
   email: string;
   firstName: string;
   lastName?: string;
+  bithDate: string
 }
