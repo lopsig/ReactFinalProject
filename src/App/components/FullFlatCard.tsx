@@ -6,6 +6,8 @@ import {
   Typography,
   styled,
   Box,
+  // Container,
+  Grid
 } from "@mui/material";
 
 import { type ProductCardProps } from "../interfaces/ProductCardPropos";
@@ -77,62 +79,64 @@ export const FullFlatCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <StyledCard>
-      {/* Icono de favorito */}
-      <Box
-        onClick={handleFavouriteClick}
-        sx={{
-          position: "relative",
-          left: "95%",
-          zIndex: 10,
-          cursor: "pointer",
-          color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",
-          // transition: "color 0.3s ease",
-        }}
-      >
-        <FavoriteIcon />
-      </Box>
+    <Grid sx={{ py: 5 }}>
+      <StyledCard>
+        {/* Icono de favorito */}
+        <Box
+          onClick={handleFavouriteClick}
+          sx={{
+            position: "relative",
+            left: "95%",
+            zIndex: 10,
+            cursor: "pointer",
+            color: isFavourite ? "red" : "rgba(255, 0, 0, 0.4)",
+            // transition: "color 0.3s ease",
+          }}
+        >
+          <FavoriteIcon />
+        </Box>
 
-      {/* Imagen */}
-      <CardMedia
-        component="img"
-        image={src}
-        alt={alt}
-        sx={{
-          width: "100%",
-          height: "auto",
-          objectFit: "cover",
-        }}
-      />
+        {/* Imagen */}
+        <CardMedia
+          component="img"
+          image={src}
+          alt={alt}
+          sx={{
+            width: "100%",
+            height: "400px",
+            objectFit: "cover",
+          }}
+        />
 
-      {/* Detalles completos */}
-      <CardContent>
-        <Typography variant="h6" component="div" gutterBottom>
-          {city}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Rent Price: ${rentPrice}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Date Available: {dateAvailable}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Street Name: {streetName}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Street Number: {streetNumber}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Area Size: {areaSize} m²
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Has AC: {hasAC ? "Sí" : "No"}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Year Built: {yearBuilt}
-        </Typography>
-      </CardContent>
-    </StyledCard>
+        {/* Detalles completos */}
+        <CardContent>
+          <Typography variant="h6" component="div" gutterBottom>
+            {city}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Rent Price: ${rentPrice}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Date Available: {dateAvailable}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Street Name: {streetName}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Street Number: {streetNumber}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Area Size: {areaSize} m²
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Has AC: {hasAC}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Year Built: {yearBuilt}
+          </Typography>
+        </CardContent>
+      </StyledCard>
+    </Grid>
   );
 };
 

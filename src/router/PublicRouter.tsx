@@ -4,6 +4,6 @@ import { Navigate } from "react-router-dom";
 
 export const PublicRouter = ({ children }) => {
   const { user } = useContext(AuthContext);
-  return !user ? children : <Navigate to={"/"} />;
+  return !user ? children : <Navigate to={"/home"} />;
 };
 

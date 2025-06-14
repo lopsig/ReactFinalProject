@@ -1,14 +1,22 @@
 import {
   createUserWithEmailAndPassword,
   getAdditionalUserInfo,
+  getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import type { AppUser } from "../interfaces/AppUser";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
+import {
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
+
+
 
 
 
@@ -33,18 +41,8 @@ export const registerUser = async (
 
     return newUser;
   } catch (error) {
-    // Manejo de errores personalizado
-    if (error.code === "auth/email-already-in-use") {
-      throw new Error("El correo ya está en uso");
-    } else if (error.code === "auth/invalid-email") {
-      throw new Error("Correo inválido");
-    } else if (error.code === "auth/operation-not-allowed") {
-      throw new Error("Operación no permitida");
-    } else if (error.code === "auth/weak-password") {
-      throw new Error("La contraseña debe tener al menos 6 caracteres");
-    } else {
-      throw new Error("Error desconocido al registrar usuario");
-    }
+    console.log("Error:",{error})
+
   }
 
 };
@@ -84,19 +82,16 @@ export const getCurrentUserData = async (uid: string): Promise<AppUser | null> =
 }
 
 export const loginWithGoogle = async (): Promise<AppUser> => {
+  const provider = new GoogleAuthProvider();
 
-  const provider = new GoogleAuthProvider
+  const result = await signInWithPopup(auth, provider);
 
-  const result = await signInWithPopup(auth, provider)
+  console.log("Resultado: ", result);
 
-  console.log("Resultado: ", result)
+  const { user } = result;
 
-
-  const { user } = result
-
-  
-  const userInfo = getAdditionalUserInfo(result)
-  const isNewUser = userInfo?.isNewUser
+  const userInfo = getAdditionalUserInfo(result);
+  const isNewUser = userInfo?.isNewUser;
 
   const userData: AppUser = {
     uid: user.uid,
@@ -110,8 +105,27 @@ export const loginWithGoogle = async (): Promise<AppUser> => {
     await getDoc(doc(db, "users", user.uid));
   }
 
-
   return userData;
 
 
+};
+
+// Cambia la contraseña del usuario autenticado
+export const changePassword = async (
+  currentPassword: string,
+  newPassword: string
+) => {
+  const authInstance = getAuth();
+  const user = authInstance.currentUser;
+
+  if (!user) throw new Error("No hay sesión iniciada");
+
+  // 1. Reautenticar con contraseña actual
+  const credential = EmailAuthProvider.credential(user.email!, currentPassword);
+  await reauthenticateWithCredential(user, credential);
+
+  // 2. Actualizar contraseña
+  await updatePassword(user, newPassword);
+
+  return true;
 };

@@ -38,7 +38,6 @@ interface AuthContextType {
   loginWithGoogleContext:() => Promise<AppUser>
 }
 
-// export const AuthContext = createContext<AuthContextType | null>(null);
 
 
 
@@ -63,7 +62,7 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AppUser | null>(null);
-
+  const [loading, setLoading] = useState(true);
   // Detecta sesión activa
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -76,10 +75,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return <div>Cargando...</div>; // O un Spinner
+  }
+
 
   
 
@@ -154,4 +159,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 // Custom hook para usar el contexto
-// export const useAuth = () => useContext(AuthContext)!;
+export const useAuthContext = () => useContext(AuthContext)!;

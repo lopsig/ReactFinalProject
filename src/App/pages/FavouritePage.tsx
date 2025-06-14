@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Grid, Typography, Box } from "@mui/material";
 
-import { FullFlatCard } from "../components/FullFlatCard";
+import { FullFlatCardFavourite } from "../components/FullFlatCardFavourite";
 import { getFavouritesFromFirebase } from "../services/FavouriteRepository";
 
 interface ProductCardProps {
@@ -35,7 +35,17 @@ export const FavouritePage = () => {
   }
 
   return (
-    <Container sx={{ py: 4 }}>
+    <Container sx={{ py: 10 }}>
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        gutterBottom
+        textAlign="center"
+        sx={{ color: "primary.main", mb: 4 }}
+      >
+        Tus Departamentos Favoritos
+      </Typography>
+
       <Grid
         justifyContent="center"
         container
@@ -58,7 +68,7 @@ export const FavouritePage = () => {
                   },
                 }}
               >
-                <FullFlatCard {...flat} />
+                <FullFlatCardFavourite {...flat} />
               </Box>
             </Grid>
           ))

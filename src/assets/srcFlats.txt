@@ -1,10 +1,3 @@
-tengo un problema, te explico el caso. Al logearme con un usuario determinado, me direcciona al home y puedo ver todo lo que rrespecta a ese usuario logeado, en el Header puedo ver su nombre, ver sus FavouriteFlat, sus MyFlats, su Profile. Pero cuando recargo la pagina desde el boton del navegador es como si se perdiera informacion del usuario logeado porque por ejemplo, estoy en Home y recargo la pagina el nombre del usuario desaparece del Header, me dirijo a Favourite y los flats favoritos del usuario incialmente logeado si estan pero al recargar la pagina desaparecen, me dirijo a MyFlats y los flats del usuario inicialmente logeado si estan pero recargo la pagina y los flats desaparecen, me regreso a Favouritey los flats favoritos del usuario incialmente logeado si estan pero al recargar la pagina desaparecen. Lo mismo si me dirijo a Profile los datos del usuario inicialmente logeado si estan, recargo la pagina y desaparecen, me regreso a  MyFlats y los flats del usuario inicialmente logeado si estan pero recargo la pagina y los flats desaparecen 
-
-
-
-
-
-
 https://media.istockphoto.com/id/2088596186/es/foto/luxury-modern-living-room.jpg?s=1024x1024&w=is&k=20&c=cydNYagVgjaxXsZuZNkDe15qJoPnhNcYSjiUSdZT4Fw=
 
 https://media.istockphoto.com/id/1293762741/es/foto/moderno-sal%C3%B3n-interior-3d-render.jpg?s=2048x2048&w=is&k=20&c=r8j7AxMG9esMkeuS1ZDao-0lh_ryJx_olV5bF6w9oDU=
@@ -16,11 +9,6 @@ https://media.istockphoto.com/id/1204742836/es/foto/apartamento-de-lujo-moderno.
 https://media.istockphoto.com/id/1213695547/es/foto/representaci%C3%B3n-3d-de-un-elegante-dormitorio.jpg?s=2048x2048&w=is&k=20&c=Om2YIl7tvMDPp2qhwcZi78c44fTbJbVvsfhnHFSOqoA=
 
 https://media.istockphoto.com/id/1837566278/es/foto/interior-del-apartamento-de-estilo-escandinavo.jpg?s=2048x2048&w=is&k=20&c=OmgZ7HTsVPqw2HYquh1eXz6WzcJdxeU9Z01rtw3_twI=
-
-
-
-
-
 
 https://media.istockphoto.com/id/1145780239/es/foto/interior-oscuro-con-cocina-abierta.jpg?s=2048x2048&w=is&k=20&c=ZN8oAEJOkD_tmFVgbWgJVDfDpjqyNlkmaTRgrTVECtw=
 
@@ -35,6 +23,18 @@ https://media.istockphoto.com/id/1219892918/es/foto/elegante-dise%C3%B1o-interio
 https://media.istockphoto.com/id/1419530786/es/foto/cocina-blanca-moderna-con-isla-de-cocina-rectangular-con-taburetes.jpg?s=2048x2048&w=is&k=20&c=lM0DxMyI2EN9zIbWJDQcRESQyhj8LO73aUTA192LxTc=
 
 https://media.istockphoto.com/id/1445563484/es/foto/interior-de-casa-de-lujo-con-escalera-refrigerador-y-mesa-de-comedor.jpg?s=2048x2048&w=is&k=20&c=KMdnnUa4_dIhgnRcKnXKLQ4-2SNzN0lOf1hBsThobb8=
+
+https://media.istockphoto.com/id/1199873461/es/foto/nuevo-apartamento-vac%C3%ADo-de-dise%C3%B1o-moderno-para-alquiler.jpg?s=2048x2048&w=is&k=20&c=ATypgQnjmeUS2Y6pESBPJNIElJuUfw17nBJ7mbgPE_4=
+
+https://media.istockphoto.com/id/1445563484/es/foto/interior-de-casa-de-lujo-con-escalera-refrigerador-y-mesa-de-comedor.jpg?s=2048x2048&w=is&k=20&c=KMdnnUa4_dIhgnRcKnXKLQ4-2SNzN0lOf1hBsThobb8=
+
+
+
+
+
+
+
+
 
 https://media.istockphoto.com/id/1199873461/es/foto/nuevo-apartamento-vac%C3%ADo-de-dise%C3%B1o-moderno-para-alquiler.jpg?s=2048x2048&w=is&k=20&c=ATypgQnjmeUS2Y6pESBPJNIElJuUfw17nBJ7mbgPE_4=
 
@@ -87,4 +87,92 @@ https://media.istockphoto.com/id/853258138/es/foto/moderno-interior.jpg?s=2048x2
 https://media.istockphoto.com/id/1149521187/es/foto/sal%C3%B3n-totalmente-amueblado.jpg?s=2048x2048&w=is&k=20&c=bBeths-HSRQyGBDH-Hr-ZkNs34x8oAy9mROU5YkNfbs=
 
 https://media.istockphoto.com/id/1182454657/es/foto/interior-de-la-sala-de-estar-bohemia-renderizado-3d.jpg?s=2048x2048&w=is&k=20&c=ZzIkjro1FErqMZKwMOrBbq7j91BlU4f9PzrK0STlTuo=
+
+
+
+
+
+
+
+React: De cero a experto (Hooks y MERN)
+	Fernando Herrera - Udemy o devtalles
+
+
+sishar backend movil
+hackerrank
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Deslog despues de un determinado tiempo
+
+
+Que me puedes decir acerca de este error:
+react-dom_client.js?v=2e16d519:17517 Each child in a list should have a unique "key" prop.
+
+Check the render method of `MuiGridRoot`. It was passed a child from HomePage. See https://react.dev/link/warning-keys for more information.
 

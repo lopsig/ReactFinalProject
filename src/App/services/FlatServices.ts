@@ -12,7 +12,7 @@ export interface Flat {
   streetName: string;
   streetNumber: number;
   areaSize: number;
-  hasAC: boolean;
+  hasAC: string;
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
@@ -27,7 +27,7 @@ export const registerFlat = async (
   streetName: string,
   streetNumber: number,
   areaSize: number,
-  hasAC: boolean,
+  hasAC: string,
   yearBuilt: number,
   rentPrice: number,
   dateAvailable: string,

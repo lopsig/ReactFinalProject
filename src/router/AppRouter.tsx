@@ -5,7 +5,6 @@ import { AuthProvider } from "../auth/context/AuthContext";
 import { PrivateRouter } from "./PrivateRouter";
 import { PublicRouter } from "./PublicRouter";
 
-
 export const AppRouter = () => {
   return (
     <AuthProvider>

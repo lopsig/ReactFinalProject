@@ -48,9 +48,11 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
   dateAvailable,
   src,
   // // userId,
-  // onDelete,
   alt,
-}) => {
+  onDelete,
+}
+
+) => {
 
   const navigate = useNavigate();
 
@@ -95,12 +97,10 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <StyledCard>
+    <StyledCard >
       <Grid container spacing={3}>
         {/* Botón de editar */}
-        <Box
-          onClick={handleEditClick}
-        >
+        <Box onClick={handleEditClick}>
           <EditIcon />
         </Box>
 
@@ -140,7 +140,7 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
         alt={alt}
         sx={{
           width: "100%",
-          height: "auto",
+          height: "200px",
           objectFit: "cover",
         }}
       />
@@ -166,7 +166,7 @@ export const FullFlatCardDelete: React.FC<ProductCardProps> = ({
           Area Size: {areaSize} m²
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Has AC: {hasAC ? "Sí" : "No"}
+          Has AC: {hasAC}
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Year Built: {yearBuilt}

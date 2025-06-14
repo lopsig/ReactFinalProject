@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Container, Typography, Button, Grid } from "@mui/material";
+import { Container, Typography, Button, Grid } from "@mui/material";
 import { FlatForm } from "../components/FlatForm";
 import { db } from "../../firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -61,12 +61,20 @@ export const EditFlatPage = () => {
   }
 
   return (
-    <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Editar Flat
-      </Typography>
+    <Container sx={{ py: 10 }}>
+            <Typography
+              variant="h5"
+              fontWeight={600}
+              gutterBottom
+              textAlign="center"
+              sx={{ color: "primary.main" }}
+            >
+              Editar Departamento
+            </Typography>
+
 
       <FlatForm initialData={initialData} onSubmit={handleUpdate} isEditing />
+      
     </Container>
   );
 };

@@ -1,9 +1,11 @@
 import { Grid, TextField, Button, Link } from "@mui/material";
 import { AuthLayout } from "../component/AuthLayout";
-// import GoogleIcon from "@mui/icons-material/Google";
+import GoogleIcon from "@mui/icons-material/Google";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../services/AuthServices";
+import { useAuthContext } from "../context/AuthContext";
+
 
 
 
@@ -14,7 +16,7 @@ type RegisterFormData = {
   confirmPassword: string;
   firstName: string;
   lastName: string;
-  birthDate: string
+  birthDate: string;
 };
 
 export const RegisterPage = () => {
@@ -26,6 +28,7 @@ export const RegisterPage = () => {
   } = useForm<RegisterFormData>();
 
   const navigate = useNavigate();
+  const { loginWithGoogleContext } = useAuthContext();
 
   const onSubmit = async (data: RegisterFormData) => {
     if (data.password != data.confirmPassword) {
@@ -42,9 +45,18 @@ export const RegisterPage = () => {
         data.birthDate
       );
       console.log("Usuario registrado:", user);
-      navigate("auth/login");
+      navigate("/auth/login");
+      // navigate("/auth/login");
     } catch (error) {
       console.error(error);
+    }
+  };
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await loginWithGoogleContext();
+      if (user) navigate("/", { replace: true });
+    } catch (error) {
+      console.log("Error con login de google: ", error);
     }
   };
 
@@ -134,7 +146,13 @@ export const RegisterPage = () => {
             type="date"
             placeholder="Birth Date"
             fullWidth
-            {...register("birthDate", { required: "Fecha de nacimiento requerida" })}
+            inputProps={{
+              min: "1905-01-01",
+              max: "2007-12-31",
+            }}
+            {...register("birthDate", {
+              required: "Fecha de nacimiento requerida",
+            })}
             error={!!errors.birthDate}
             helperText={errors.birthDate?.message}
           />
@@ -142,16 +160,21 @@ export const RegisterPage = () => {
 
         <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
           <Grid size={{ sm: 6, xs: 12 }}>
-            <Button variant="contained" fullWidth type="submit">
+            <Button type="submit" variant="contained" fullWidth>
               Registrar
             </Button>
           </Grid>
-          {/* 
+
           <Grid size={{ sm: 6, xs: 12 }}>
-            <Button variant="contained" fullWidth startIcon={<GoogleIcon />}>
+            <Button
+              variant="contained"
+              fullWidth
+              startIcon={<GoogleIcon />}
+              onClick={handleGoogleLogin}
+            >
               Google
             </Button>
-          </Grid> */}
+          </Grid>
 
           <Grid container direction="row" justifyContent="end">
             <Link component={RouterLink} color="inherit" to="/auth/login">

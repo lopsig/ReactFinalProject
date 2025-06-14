@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, } from "@mui/material";
 import type { ReactNode } from "react";
 
 interface FlatLayoutProps {
@@ -8,30 +8,31 @@ interface FlatLayoutProps {
 
 export const FlatLayout: React.FC<FlatLayoutProps> = ({
   children,
-  description = "",
+  // description = "",
 }) => {
   return (
     <Grid
       container
-      spacing={1}
+      // spacing={1}
       alignItems={"center"}
       justifyContent={"center"}
-      sx={{
-        margin: 1,
-        padding: 2,
-        minHeight: "calc(100vh - 20px)",
-        boxSizing: "border-box",
-      }}
+      // sx={{
+      //   margin: 1,
+      //   padding: 2,
+      //   minHeight: "calc(100vh - 20px)",
+      //   boxSizing: "border-box",
+      // }}
     >
       <Grid
         sx={{
-          width: { sm: 450 },
+          width: { sm: 300 },
           background: "#eee",
-          padding: 4,
-          borderRadius: 2,
+          // padding: 4,
+          borderRadius: 4,
+        
         }}
       >
-        <Typography variant="body1">{description}</Typography>
+        {/* <Typography variant="body1">{description}</Typography> */}
         {children}
       </Grid>
     </Grid>

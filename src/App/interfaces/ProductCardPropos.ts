@@ -2,9 +2,9 @@ export interface ProductCardProps {
   id?: string;
   city: string;
   streetName: string;
-  streetNumber: number;
+  streetNumber: string;
   areaSize: number;
-  hasAC: boolean | string;
+  hasAC: string;
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
@@ -12,4 +12,5 @@ export interface ProductCardProps {
   alt: string;
   userId: string;
   isFavourite?: boolean;
+  onDelete?: () => void;
 }

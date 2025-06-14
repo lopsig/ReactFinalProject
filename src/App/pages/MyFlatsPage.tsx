@@ -15,7 +15,7 @@ interface Flat {
   streetName: string;
   streetNumber: number;
   areaSize: number;
-  hasAC: boolean;
+  hasAC: string;
   yearBuilt: number;
   rentPrice: number;
   dateAvailable: string;
@@ -67,7 +67,17 @@ export const MyFlatsPage = () => {
   };
 
   return (
-    <Container sx={{ py: 4 }}>
+    <Container sx={{ py: 10 }}>
+      <Typography
+        variant="h4"
+        fontWeight={600}
+        gutterBottom
+        textAlign="center"
+        sx={{ color: "primary.main", mb: 4 }}
+      >
+        Mis Departementos Publicados
+      </Typography>
+
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -80,7 +90,7 @@ export const MyFlatsPage = () => {
           flats.map((flat) => (
             <Grid size={{ xs: 2, sm: 4, md: 4 }} key={flat.id}>
               <Box
-                onClick={() => handleFlatClick(flat)}
+           
                 sx={{
                   cursor: "pointer",
                   transition: "transform 0.2s ease",

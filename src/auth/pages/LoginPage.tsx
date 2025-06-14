@@ -1,9 +1,11 @@
-import { Grid, TextField, Button, Link } from "@mui/material";
+import { Grid, TextField, Button, Link, Alert } from "@mui/material";
 import { AuthLayout } from "../component/AuthLayout";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../services/AuthServices";
+import { useState } from "react";
+import { useAuthContext } from "../context/AuthContext";
 
 
 
@@ -20,6 +22,8 @@ export const LoginPage = () => {
   } = useForm<LoginFormData>();
 
   const navigate = useNavigate();
+  const { loginWithGoogleContext } = useAuthContext();
+  const [error, setError] = useState<string | null>(null);
 
   
   const onSubmit = async (data: LoginFormData) => {
@@ -32,12 +36,24 @@ export const LoginPage = () => {
         const fullName = `${user.firstName} ${user.lastName}`;
         localStorage.setItem("actualUser", fullName);
 
-        navigate("/");
+        navigate("/home");
       } else {
         console.log("No se encotró el usuario en Firestore");
+        ;
       }
     } catch (error) {
       console.error(error);
+      setError("Usuario o contraseña Incorrecto");
+      
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await loginWithGoogleContext();
+      if (user) navigate("/", { replace: true });
+    } catch (error) {
+      console.log("Error con login de google: ", error);
     }
   };
 
@@ -80,6 +96,12 @@ export const LoginPage = () => {
           />
         </Grid>
 
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
+
         <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
           <Grid size={{ sm: 6, xs: 12 }}>
             <Button variant="contained" fullWidth type="submit">
@@ -87,16 +109,16 @@ export const LoginPage = () => {
             </Button>
           </Grid>
 
-          {/* <Grid size={{ sm: 6, xs: 12 }}>
+          <Grid size={{ sm: 6, xs: 12 }}>
             <Button
               variant="contained"
               fullWidth
               startIcon={<GoogleIcon />}
-             
+              onClick={handleGoogleLogin}
             >
               Google
             </Button>
-          </Grid> */}
+          </Grid>
 
           <Grid container direction="row" justifyContent="end">
             <Link component={RouterLink} color="inherit" to="/auth/register">

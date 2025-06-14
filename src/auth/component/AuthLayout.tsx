@@ -28,10 +28,17 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
           width: { sm: 450 },
           background: "#eee",
           padding: 4,
-          borderRadius: 2,
+          borderRadius: 5,
         }}
       >
-        <Typography variant="body1">{description}</Typography>
+        <Typography
+                   variant="h5" fontWeight={600} textAlign="center" mb={3}
+        
+        >
+          {description}
+
+
+        </Typography>
         {children}
       </Grid>
     </Grid>

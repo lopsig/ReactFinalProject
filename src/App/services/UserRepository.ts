@@ -3,7 +3,6 @@ import {
   getDoc,
   updateDoc,
   deleteDoc,
-  collection,
 } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase";
 import { type AppUser } from "../../auth/interfaces/AppUser";
@@ -35,9 +34,9 @@ export const updateUserData = async (uid: string, data: Partial<AppUser>) => {
   try {
     const userRef = doc(db, "users", uid);
     await updateDoc(userRef, data);
-    console.log("Perfil actualizado");
+    console.log("Profile Update");
   } catch (error) {
-    console.error("Error al actualizar perfil:", error);
+    console.error("Error update profile:", error);
     throw error;
   }
 };
